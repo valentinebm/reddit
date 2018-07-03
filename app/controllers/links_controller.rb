@@ -12,6 +12,7 @@ class LinksController < ApplicationController
   # GET /links/1
   # GET /links/1.json
   def show
+    @url_with_protocol=url_with_protocol(@link.url)
   end
 
   # GET /links/new
@@ -61,6 +62,10 @@ class LinksController < ApplicationController
       format.html { redirect_to links_url, notice: 'Link was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def url_with_protocol(url)
+     /^http/i.match(url) ? url : "http://#{url}"
   end
 
   private
